@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace tuto
 {
@@ -7,60 +6,36 @@ namespace tuto
     {
         static void Main(string[] args)
         {
-            //https://docs.microsoft.com/es-es/dotnet/csharp/tutorials/intro-to-csharp/list-collection
+            // https://docs.microsoft.com/es-es/dotnet/csharp/tutorials/intro-to-csharp/introduction-to-classes
+            // https://github.com/dotnet/docs/tree/master/samples/snippets/csharp/classes-quickstart/
 
-            var names = new List<string> { "Aitor", "Ana", "Felipe" };
-            foreach (var name in names)
+            var account = new BankAccount("Aitor", 1000);
+            Console.WriteLine($"Account {account.Number} was created for {account.Owner} with {account.Balance} initial balance.");
+            account.MakeWithdrawal(500, DateTime.Now, "Rent payment");
+            Console.WriteLine(account.Balance);
+            account.MakeDeposit(100, DateTime.Now, "Friend paid me back");
+            Console.WriteLine(account.Balance);
+            // Test that the initial balances must be positive.
+            try
             {
-                Console.WriteLine($"Hello {name.ToUpper()}!");
+                var invalidAccount = new BankAccount("invalid", -55);
             }
-
-            Console.WriteLine();
-            names.Add("Maria");
-            names.Add("Bill");
-            names.Remove("Ana");
-            foreach (var name in names)
+            catch (ArgumentOutOfRangeException)//(ArgumentOutOfRangeException e)
             {
-                Console.WriteLine($"Hello {name.ToUpper()}!");
+                Console.WriteLine("Exception caught creating account with negative balance");
+                //Console.WriteLine(e.ToString());
             }
-
-            Console.WriteLine($"My name is {names[0]}.");
-            Console.WriteLine($"I've added {names[2]} and {names[3]} to the list.");
-            Console.WriteLine($"The list has {names.Count} people in it");
-
-            var index = names.IndexOf("Felipe");
-            if (index != -1)
-                Console.WriteLine($"The name {names[index]} is at index {index}");
-
-            var notFound = names.IndexOf("Not Found");
-            Console.WriteLine($"When an item is not found, IndexOf returns {notFound}");
-
-            names.Sort();
-            foreach (var name in names)
+            // Test for a negative balance.
+            try
             {
-                Console.WriteLine($"Hello {name.ToUpper()}!");
+                account.MakeWithdrawal(750, DateTime.Now, "Attempt to overdraw");
             }
-
-            var fibonacciNumbers = new List<int> { 1, 1 };
-            var previous = fibonacciNumbers[fibonacciNumbers.Count - 1];
-            var previous2 = fibonacciNumbers[fibonacciNumbers.Count - 2];
-
-            fibonacciNumbers.Add(previous + previous2);
-
-            foreach (var item in fibonacciNumbers)
-                Console.WriteLine(item);
-
-
-            fibonacciNumbers = new List<int> { 1, 1 };
-            while (fibonacciNumbers.Count < 20)
+            catch (InvalidOperationException)//(InvalidOperationException e)
             {
-                previous = fibonacciNumbers[fibonacciNumbers.Count - 1];
-                previous2 = fibonacciNumbers[fibonacciNumbers.Count - 2];
-
-                fibonacciNumbers.Add(previous + previous2);
+                Console.WriteLine("Exception caught trying to overdraw");
+                //Console.WriteLine(e.ToString());
             }
-            foreach (var item in fibonacciNumbers)
-                Console.WriteLine(item);
+            Console.WriteLine(account.GetAccountHistory());
 
         }
     }
