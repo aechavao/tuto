@@ -6,30 +6,36 @@ namespace tuto
     {
         static void Main(string[] args)
         {
-            // https://docs.microsoft.com/es-es/dotnet/csharp/tutorials/intro-to-csharp/numbers-in-csharp
-            int a = 7;
-            int b = 4;
-            int c = 3;
-            int d = (a + b) / c;
-            int e = (a + b) % c;
-            Console.WriteLine($"quotient: {d}");
-            Console.WriteLine($"remainder: {e}");
-            int max = int.MaxValue;
-            int min = int.MinValue;
-            Console.WriteLine($"The range of integers is {min} to {max}");
-            int what = max + 3;
-            Console.WriteLine($"An example of overflow: {what}");
+            // https://docs.microsoft.com/es-es/dotnet/csharp/tutorials/intro-to-csharp/branches-and-loops
+            int counter = 0;
+            while (counter < 10)
+            {
+                Console.WriteLine($"Hello World! The counter is {counter}");
+                counter++;
+            }
 
-            double da = 19;
-            double db = 23;
-            double dc = 8;
-            double dd = (da + db) / dc;
-            Console.WriteLine(dd);
-            double dmax = double.MaxValue;
-            double dmin = double.MinValue;
-            Console.WriteLine($"The range of double is {dmin} to {dmax}");
-            double third = 1.0 / 3.0;
-            Console.WriteLine(third);
+            for (int i = 0; i < 10; i++)
+            {
+                Console.WriteLine($"Hello World! The counter is {i}");
+            }
+
+            for (int row = 1; row < 11; row++)
+            {
+                for (char column = 'a'; column < 'k'; column++)
+                {
+                    Console.WriteLine($"The cell is ({row}, {column})");
+                }
+            }
+
+            int sum = 0;
+            for (int number = 1; number < 21; number++)
+            {
+                if (number % 3 == 0)
+                {
+                    sum = sum + number;
+                }
+            }
+            Console.WriteLine($"The sum is {sum}");
         }
     }
 }
